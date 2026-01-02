@@ -1,3 +1,8 @@
+scene.onHitWall(SpriteKind.Enemy, function () {
+    if (myEnemy.isHittingTile(CollisionDirection.Bottom)) {
+        myEnemy.vy = -150
+    }
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         mySprite.vy += -175
@@ -10,6 +15,27 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
         music.knock.play()
         info.changeScoreBy(1)
     }
+})
+sprites.onDestroyed(SpriteKind.Enemy, function () {
+    myEnemy = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . 7 7 7 7 7 
+        . . . . . . . . . . . 7 f 7 f 7 
+        . . . . . . . . . . . 7 7 7 7 7 
+        . . . . . . . . . . . 7 7 f 7 7 
+        . . . . . . . . . . . . 7 7 7 . 
+        . . . . . . . . . . . 8 8 7 7 8 
+        . . . . . . . . 7 7 7 8 8 8 8 8 
+        . . . . . . . . . . . 8 8 8 8 8 
+        . . . . . . . . 7 7 7 8 8 8 8 8 
+        . . . . . . . . . . . 6 6 . 6 6 
+        . . . . . . . . . . . 6 6 . 6 6 
+        . . . . . . . . . . . 6 6 . 6 6 
+        . . . . . . . . . . . f f . f f 
+        `, SpriteKind.Enemy)
+    tiles.placeOnRandomTile(myEnemy, assets.tile`myTile7`)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (inventory_open) {
