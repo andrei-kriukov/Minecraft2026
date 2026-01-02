@@ -163,7 +163,7 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 let PixelstoMetres = 30
 let Gravity = 9.81 * PixelstoMetres
-info.setLife(5000000000)
+info.setLife(10)
 color.setColor(1, color.rgb(255, 255, 255))
 controller.moveSprite(mySprite, 100, 0)
 scene.setBackgroundColor(9)
@@ -186,6 +186,7 @@ myEnemy = sprites.create(img`
     . . . . . . . . . . . 6 6 . 6 6 
     . . . . . . . . . . . f f . f f 
     `, SpriteKind.Enemy)
+myEnemy.ay = 500
 pickaxe = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -204,10 +205,16 @@ pickaxe = sprites.create(img`
     . . . . . . e e . . . . . . . . 
     . . . . . . e e . . . . . . . . 
     `, SpriteKind.Player)
-myEnemy.follow(mySprite)
 mySprite.ay = Gravity
 tiles.placeOnRandomTile(mySprite, assets.tile`transparency16`)
 tiles.placeOnRandomTile(pickaxe, assets.tile`myTile`)
 pickaxe.y += -16
 scene.cameraFollowSprite(mySprite)
 info.setScore(blocks)
+game.onUpdate(function () {
+    if (myEnemy.x < mySprite.x) {
+        myEnemy.vx = 50
+    } else {
+        myEnemy.vx = -50
+    }
+})
